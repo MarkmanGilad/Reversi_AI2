@@ -8,6 +8,7 @@ from RandomAgent import RandomAgent
 from FixAgent import FixAgent
 from FixAgent2 import FixAgent2
 import torch
+import numpy as np
 
 environment = Reversi()
 # player1 = MinMaxAgent(player = 1,depth = 3, environment=environment)
@@ -18,8 +19,8 @@ environment = Reversi()
 # player1 = FixAgent2(environment, player=1, train=False)
 # path='Data/Leaky_fix_1000k.pth'
 # path='Python/Reversi - AI - Q/Data/Leaky_fix2_1000k.pth'
-# path = None
-# player1 = DQNAgent(player=1, parametes_path=path,train=False, env=environment)
+path = None
+player1 = DQNAgent(player=1, parametes_path=path,train=False, env=environment)
 
 # player2 = MinMaxAgent(player = 2,depth = 3, environment=environment)
 # player2 = MinMaxAgent2(player = 2,depth = 3, environment=environment)
@@ -64,5 +65,10 @@ def switchPlayers(player):
 
 if __name__ == '__main__':
     # main()
-    results = torch.load('Data/results_fix_2_1000k.pth')
+    results = torch.load('Data/results_fix_3_1000k.pth')
     print (results)
+    print(max(results['results']))
+    print(np.argmax(results['results']))
+    print(len(results['results']))
+    buffer = torch.load('Data/buffer_fix_3_1000k.pth')
+    x = 1

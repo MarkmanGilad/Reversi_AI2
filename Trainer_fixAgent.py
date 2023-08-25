@@ -1,9 +1,9 @@
 from Reversi import Reversi
 from State import State
-from DQNAgent import DQNAgent
+from DQNAgent_random_start import DQNAgent
 from ReplayBuffer import ReplayBuffer
 from RandomAgent import RandomAgent
-from FixAgent import FixAgent
+from FixAgent_random_start import FixAgent
 import torch
 # from TesterClass import Tester
 
@@ -15,10 +15,10 @@ batch_size = 64
 env = Reversi()
 
 path_load= None
-path_Save='Data/fix_3_1000k.pth'
-path_best = 'Data/best_fix_3_1000k.pth'
-buffer_path = 'Data/buffer_fix_3_1000k.pth'
-results_path='Data/results_fix_3_1000k.pth'
+path_Save='Data/fix_random_start_1000k.pth'
+path_best = 'Data/best_fix_random_start_1000k.pth'
+buffer_path = 'Data/buffer_fix_random_start_1000k.pth'
+results_path='Data/results_fix_random_start_1000k.pth'
 
 def main ():
     # data = torch.load(results_path)
@@ -34,6 +34,7 @@ def main ():
     avgLoss = 0
     res = 0
     best_res = -200
+    loss_count = 1
     # tester = Tester(player1=player1, player2=player2, env=env)
     # results = torch.load(results_path)
     # results = data['results']
@@ -80,24 +81,32 @@ def main ():
             if epoch % C == 0:
                 Q_hat.load_state_dict(Q.state_dict())
             scheduler.step()
-            avgLoss = (avgLoss * (epoch-1) + loss)/ epoch
+            if loss_count < 100:
+                avgLoss = (avgLoss * (loss_count-1) + loss)/ loss_count
+                loss_count += 1
+            else:
+                avgLosses.append(avgLoss.item())
+                avgLoss = loss
+                loss_count = 1
+            
 
         if (epoch+1) % 100 == 0:
                 print(f'\nres= {res}')
+                results.append(res)
                 if best_res < res:
                     best_res = res
-                    results.append(res)
                     player1.save_param(path_best)
+                    if best_res > 90:
+                        break
                 res = 0
 
         if epoch % 5000 == 0:
-            avgLosses.append(avgLoss)            
             torch.save({'epoch': epoch, 'results': results, 'avglosses':avgLosses}, results_path)
             torch.save(buffer, buffer_path)
             player1.save_param(path_Save)
         if len(buffer) > 5000:
             print (f'epoch={epoch} loss={loss:.5f} Q_values[0]={Q_values[0].item():.3f} avgloss={avgLoss:.5f}', end=" ")
-            print (f'learning rate={learning_rate} path={path_Save} res= {res} best_res = {best_res}')
+            print (f'learning rate={scheduler.get_last_lr()[0]} path={path_Save} res= {res} best_res = {best_res}')
 
     torch.save({'epoch': epoch, 'results': results, 'avglosses':avgLosses}, results_path)
     torch.save(buffer, buffer_path)
