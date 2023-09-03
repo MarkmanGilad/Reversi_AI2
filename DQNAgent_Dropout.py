@@ -2,9 +2,9 @@ import numpy as np
 import torch
 from Reversi import Reversi
 from State import State
-from DQN_1_layer import *
+from DQN_Dropout import *
 
-rundom_start = 0
+rundom_start = 4
 
 class DQNAgent:
     def __init__(self, player = 1, parametes_path = None, train = True, env= None):
