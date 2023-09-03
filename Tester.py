@@ -65,10 +65,12 @@ def switchPlayers(player):
 
 if __name__ == '__main__':
     # main()
-    results = torch.load('Data/results_fix_3_1000k.pth')
-    print (results)
+    path = 'Reversi_AI2/Data/results_fix_Random_start_1000k.pth'
+    # path = 'Reversi_AI2/Data/results_fix_3_1000k.pth'
+    results = torch.load(path)
+    # print (results)
     print(max(results['results']))
     print(np.argmax(results['results']))
     print(len(results['results']))
-    buffer = torch.load('Data/buffer_fix_3_1000k.pth')
-    x = 1
+    # buffer = torch.load('Data/buffer_fix_3_1000k.pth')
+    # x = 1

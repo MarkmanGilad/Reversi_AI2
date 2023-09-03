@@ -4,6 +4,7 @@ from State import State
 import random
 import torch
 
+rundom_start = 6
 
 class FixAgent:
     def __init__(self, env, player = 1, train = False) -> None:
@@ -30,7 +31,7 @@ class FixAgent:
 
     def get_Action (self, events = None, graphics=None, state: State = None, epoch = 0, train = True):
         legal_actions = state.legal_actions
-        if np.count_nonzero(state.board)<8:
+        if np.count_nonzero(state.board) < rundom_start:
             return random.choice(legal_actions)
         next_states, _ = self.env.get_all_next_states(state)
         values = []

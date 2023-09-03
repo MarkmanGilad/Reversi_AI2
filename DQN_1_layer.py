@@ -11,7 +11,7 @@ import copy
 # Parameters
 
 input_size = 66 # state: board = 8 * 8 = 64 + action (2) 
-layer1 = 128
+# layer1 = 128
 layer2 = 64
 output_size = 1 # Q(state, action)
 gamma = 0.99 
@@ -31,14 +31,12 @@ class DQN (nn.Module):
         else:
             self.device = torch.device('cpu')
 
-        self.linear1 = nn.Linear(input_size, layer1)
-        self.linear2 = nn.Linear(layer1, layer2)
+        self.linear1 = nn.Linear(input_size, layer2)
+        # self.linear2 = nn.Linear(layer1, layer2)
         self.output = nn.Linear(layer2, output_size)
         
     def forward (self, x):
         x = self.linear1(x)
-        x = F.leaky_relu(x)
-        x = self.linear2(x)
         x = F.leaky_relu(x)
         x = self.output(x)
         return x

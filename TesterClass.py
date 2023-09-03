@@ -46,7 +46,7 @@ if __name__ == '__main__':
     env = Reversi()
     # player2 = FixAgent(env, player=2)
     player2 = RandomAgent(env)
-    path = 'Data/fix_3_1000k.pth'
+    path = 'Reversi_AI2/Data/fix_3_1000k.pth'
     player1 = DQNAgent(player=1, parametes_path=path,train=False, env=env)
     # player1 = RandomAgent(env)
     test = Tester(env,player1, player2)

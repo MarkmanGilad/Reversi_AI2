@@ -3,7 +3,7 @@ from State import State
 from DQNAgent_random_start import DQNAgent
 from ReplayBuffer import ReplayBuffer
 from RandomAgent import RandomAgent
-from FixAgent_random_start import FixAgent
+from FixAgent import FixAgent
 import torch
 # from TesterClass import Tester
 
@@ -14,11 +14,11 @@ learning_rate = 0.0001
 batch_size = 64
 env = Reversi()
 
-path_load= 'Data/fix_random_start_1000k.pth'
-path_Save='Data/fix_random_start_1000k.pth'
-path_best = 'Data/best_fix_random_start_1000k.pth'
-buffer_path = 'Data/buffer_fix_random_start_1000k.pth'
-results_path='Data/results_fix_random_start_1000k.pth'
+path_load= 'Data/fix.pth'
+path_Save='Data/fix.pth'
+path_best = 'Data/best_fix.pth'
+buffer_path = 'Data/buffer_fix.pth'
+results_path='Data/results_fix.pth'
 
 def main ():
     data = torch.load(results_path)

@@ -1,27 +1,27 @@
 from Reversi import Reversi
 from State import State
-from DQNAgent_random_start import DQNAgent
+from DQNAgent_one_layer import DQNAgent
 from ReplayBuffer import ReplayBuffer
-from RandomAgent import RandomAgent
+# from RandomAgent import RandomAgent
 from FixAgent_random_start import FixAgent
 import torch
 # from TesterClass import Tester
 
 epochs = 2000000
-start_epoch = 1000000
+start_epoch = 0
 C = 1000
-learning_rate = 0.0001
+learning_rate = 0.01
 batch_size = 64
 env = Reversi()
 
-path_load= 'Data/fix_random_start_1000k.pth'
-path_Save='Data/fix_random_start_1000k.pth'
-path_best = 'Data/best_fix_random_start_1000k.pth'
-buffer_path = 'Data/buffer_fix_random_start_1000k.pth'
-results_path='Data/results_fix_random_start_1000k.pth'
+path_load= None
+path_Save='Reversi_AI2/Data/fix_random_start_1_layer2.pth'
+path_best = 'Reversi_AI2/Data/best_fix_random_start_1_layer2.pth'
+buffer_path = 'Reversi_AI2/Data/buffer_fix_random_start_1_layer2.pth'
+results_path='Reversi_AI2/Data/results_fix_random_start_1_layer2.pth'
 
 def main ():
-    data = torch.load(results_path)
+    # data = torch.load(results_path)
     player1 = DQNAgent(player=1, env=env,parametes_path=path_load)
     # player2 = RandomAgent(player=2, env=env)
     player2 = FixAgent(player=2, env=env, train=False)
@@ -34,18 +34,18 @@ def main ():
     avgLoss = 0
     loss = torch.Tensor([0])
     res = 0
-    best_res = -31
-    loss_count = 2000
+    best_res = -200
+    loss_count = 0
     # tester = Tester(player1=player1, player2=player2, env=env)
     # results = torch.load(results_path)
-    results = data['results']
-    avgLosses = data['avglosses']
-    avgLoss = avgLosses[-1]
+    # results = data['results']
+    # avgLosses = data['avglosses']
+    # avgLoss = avgLosses[-1]
     
     # init optimizer
     optim = torch.optim.Adam(Q.parameters(), lr=learning_rate)
-    scheduler = torch.optim.lr_scheduler.StepLR(optim,1000, gamma=0.95)
-    # scheduler = torch.optim.lr_scheduler.MultiStepLR(optim,[30*50000, 30*100000, 30*250000, 30*500000], gamma=0.5)
+    # scheduler = torch.optim.lr_scheduler.StepLR(optim,1000, gamma=0.95)
+    scheduler = torch.optim.lr_scheduler.MultiStepLR(optim,[30*10000, 30*50000, 30*100000, 30*250000, 30*500000], gamma=0.5)
     for epoch in range(start_epoch, epochs):
         print(f'epoch = {epoch}', end='\r')
         state = env.get_init_state()
@@ -81,7 +81,7 @@ def main ():
             optim.zero_grad()
             if epoch % C == 0:
                 Q_hat.load_state_dict(Q.state_dict())
-            # scheduler.step()
+            scheduler.step()
             if loss_count <= 1000:
                 avgLoss = (avgLoss * loss_count + loss.item()) / (loss_count + 1)
                 loss_count += 1
@@ -100,7 +100,7 @@ def main ():
                         break
                 res = 0
 
-        if epoch % 5000 == 0:
+        if (epoch+1) % 5000 == 0:
             torch.save({'epoch': epoch, 'results': results, 'avglosses':avgLosses}, results_path)
             torch.save(buffer, buffer_path)
             player1.save_param(path_Save)
