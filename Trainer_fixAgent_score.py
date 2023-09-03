@@ -1,6 +1,6 @@
 from Reversi import Reversi
-from State import State
-from DQNAgent_one_layer import DQNAgent
+# from State import State
+from DQNAgent_score import DQNAgent
 from ReplayBuffer import ReplayBuffer
 from RandomAgent import RandomAgent
 from FixAgent import FixAgent
@@ -15,12 +15,12 @@ batch_size = 64
 env = Reversi()
 
 path_load= None
-path_Save='Data/fix_5.pth'
-path_best = 'Data/best_fix_5.pth'
-buffer_path = 'Data/buffer_fix_5.pth'
-results_path='Data/results_fix_5.pth'
-random_results_path = 'Data/random_fix_5.pth'
-path_best_random = 'Data/best_random_fix_5.pth'
+path_Save='Data/fix_8.pth'
+path_best = 'Data/best_fix_8.pth'
+buffer_path = 'Data/buffer_fix_8.pth'
+results_path='Data/results_fix_8.pth'
+random_results_path = 'Data/random_fix_8.pth'
+path_best_random = 'Data/best_random_fix_8.pth'
 
 def main ():
     # data = torch.load(results_path)
