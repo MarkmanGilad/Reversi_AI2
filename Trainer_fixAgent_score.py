@@ -8,13 +8,13 @@ import torch
 from TesterClass import Tester
 
 epochs = 2000000
-start_epoch = 0
+start_epoch = 1
 C = 1000
 learning_rate = 0.01
 batch_size = 64
 env = Reversi()
 
-path_load= None
+path_load= 'Data/fix_8.pth'
 path_Save='Data/fix_8.pth'
 path_best = 'Data/best_fix_8.pth'
 buffer_path = 'Data/buffer_fix_8.pth'
@@ -23,7 +23,7 @@ random_results_path = 'Data/random_fix_8.pth'
 path_best_random = 'Data/best_random_fix_8.pth'
 
 def main ():
-    # data = torch.load(results_path)
+    data = torch.load(results_path)
     player1 = DQNAgent(player=1, env=env,parametes_path=path_load)
     # player2 = RandomAgent(player=2, env=env)
     player2 = FixAgent(player=2, env=env, train=False)
@@ -41,10 +41,10 @@ def main ():
     tester = Tester(player1=player1, player2=RandomAgent(player=2, env=env), env=env)
     random_results = []
     best_random = -100
-    # results = torch.load(results_path)
-    # results = data['results']
-    # avgLosses = data['avglosses']
-    # avgLoss = avgLosses[-1]
+    
+    results = data['results']
+    avgLosses = data['avglosses']
+    avgLoss = avgLosses[-1]
     
     # init optimizer
     optim = torch.optim.Adam(Q.parameters(), lr=learning_rate)
@@ -99,9 +99,9 @@ def main ():
             results.append(res)
             if best_res < res:
                 best_res = res
-                if best_res > 95:
-                    player1.save_param(path_best)
-                    break
+                # if best_res > 95:
+                #     player1.save_param(path_best)
+                #     break
             res = 0
 
         if (epoch+1) % 1000 == 0:

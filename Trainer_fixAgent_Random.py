@@ -1,9 +1,9 @@
 from Reversi import Reversi
 from State import State
-from DQNAgent_score import DQNAgent
+from DQNAgent_one_layer import DQNAgent
 from ReplayBuffer import ReplayBuffer
 from RandomAgent import RandomAgent
-# from FixAgent import FixAgent
+from FixAgent import FixAgent
 import torch
 from TesterClass import Tester
 
@@ -15,18 +15,18 @@ batch_size = 64
 env = Reversi()
 
 path_load= None
-path_Save='Data/random_9.pth'
-path_best = 'Data/best_random_9.pth'
-buffer_path = 'Data/buffer_random_9.pth'
-results_path='Data/results_random_9.pth'
-random_results_path = 'Data/random_test_9.pth'
-path_best_random = 'Data/best_random_test_9.pth'
+path_Save='Data/fix_10.pth'
+path_best = 'Data/best_fix_10.pth'
+buffer_path = 'Data/buffer_fix_10.pth'
+results_path='Data/results_fix_10.pth'
+random_results_path = 'Data/random_fix_10.pth'
+path_best_random = 'Data/best_random_fix_10.pth'
 
 def main ():
     # data = torch.load(results_path)
     player1 = DQNAgent(player=1, env=env,parametes_path=path_load)
-    player2 = RandomAgent(player=2, env=env)
-    # player2 = FixAgent(player=2, env=env, train=False)
+    # player2 = RandomAgent(player=2, env=env)
+    player2 = FixAgent(player=2, env=env, train=True)
     buffer = ReplayBuffer(path=None)
     Q = player1.DQN
     Q_hat = Q.copy()

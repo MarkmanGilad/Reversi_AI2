@@ -21,16 +21,19 @@ class FixAgent:
                            [-25, -25, 2, 2, 2, 2, -25, -25],
                            [100, -25, 10, 5, 5, 10, -25, 100]])
         board = state.board
-        score1 = ((board % 2) * v).sum()
-        score2 = ((board // 2) * v).sum()
+        score = (board * -2 + 3).sum()
+        # score1 = ((board % 2) * v).sum()
+        # score2 = ((board // 2) * v).sum()
         if self.player == 1:
-             return score1 - score2
+            #  return score1 - score2
+            return score
         else:
-             return score2 - score1
+            #  return score2 - score1
+            return -score
 
     def get_Action (self, events = None, graphics=None, state: State = None, epoch = 0, train = True):
         next_states, legal_actions = self.env.get_all_next_states(state)
-        if self.train and train and random.random() < 0.1:
+        if self.train and train and random.random() < 0.05:
              return random.choice(legal_actions)
         values = []
         for next_state in next_states:
