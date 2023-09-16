@@ -15,18 +15,18 @@ batch_size = 64
 env = Reversi()
 
 path_load= None
-path_Save='Data/fix_10.pth'
-path_best = 'Data/best_fix_10.pth'
-buffer_path = 'Data/buffer_fix_10.pth'
-results_path='Data/results_fix_10.pth'
-random_results_path = 'Data/random_fix_10.pth'
-path_best_random = 'Data/best_random_fix_10.pth'
+path_Save='Data/fix_12.pth'
+path_best = 'Data/best_fix_12.pth'
+buffer_path = 'Data/buffer_fix_12.pth'
+results_path='Data/results_fix_12.pth'
+random_results_path = 'Data/random_fix_12.pth'
+path_best_random = 'Data/best_random_fix_12.pth'
 
 def main ():
     # data = torch.load(results_path)
     player1 = DQNAgent(player=1, env=env,parametes_path=path_load)
     # player2 = RandomAgent(player=2, env=env)
-    player2 = FixAgent(player=2, env=env, train=True)
+    player2 = FixAgent(player=2, env=env, train=True, random=0.1)
     buffer = ReplayBuffer(path=None)
     Q = player1.DQN
     Q_hat = Q.copy()
@@ -99,9 +99,9 @@ def main ():
             results.append(res)
             if best_res < res:
                 best_res = res
-                if best_res > 95:
+                if best_res > 75:
                     player1.save_param(path_best)
-                    break
+                    # break
             res = 0
 
         if (epoch+1) % 1000 == 0:

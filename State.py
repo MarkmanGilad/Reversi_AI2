@@ -29,6 +29,8 @@ class State:
         player_score = np.count_nonzero(self.board == player)
         opponent_score = np.count_nonzero(self.board == opponent)
         return player_score - opponent_score
+        # return (self.board * -2 + 3).sum()
+
 
     def reward (self, player = 1):
         scores = self.score(player=player)

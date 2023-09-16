@@ -112,6 +112,10 @@ class Reversi:
         else:
             state.legal_actions = legal_actions
 
+    def get_legal_actions(self, state:State):
+        return state.legal_actions
+        
+
     def is_end_of_game(self, state: State):
         # legal_moves = self.get_legal_actions(state)
         if state.legal_actions[0] != (-1,-1):

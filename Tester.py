@@ -1,34 +1,34 @@
 from Reversi import Reversi
-from MinMaxAgent import MinMaxAgent
-from MinMaxAgent2 import MinMaxAgent2
+# from MinMaxAgent import MinMaxAgent
+# from MinMaxAgent2 import MinMaxAgent2
 from AlphBetaAgent import AlphaBetaAgent
-from DQNAgent_one_layer import DQNAgent
-from State import State
+from DQNAgent_score import DQNAgent
+# from State import State
 from RandomAgent import RandomAgent
 from FixAgent import FixAgent
 from FixAgent2 import FixAgent2
-import torch
-import numpy as np
+# import torch
+# import numpy as np
 
 environment = Reversi()
 # player1 = MinMaxAgent(player = 1,depth = 3, environment=environment)
 # player1 = MinMaxAgent2(player = 1,depth = 3, environment=environment)
 # player1 = AlphaBetaAgent(player = 1,depth = 3, environment=environment)
-player1 = RandomAgent(environment)
-# player1 = FixAgent(environment, player=1, train=True)
+# player1 = RandomAgent(environment)
+# player1 = FixAgent(environment, player=1, train=False)
 # player1 = FixAgent2(environment, player=1, train=False)
 
-# path='Data/best_fix_3.pth'
+path='Data/fix_10.pth'
 # path='Python/Reversi - AI - Q/Data/Leaky_fix2_1000k.pth'
-path = None
-# player1 = DQNAgent(player=1, parametes_path=path,train=False, env=environment)
+# path = None
+player1 = DQNAgent(player=1, parametes_path=path,train=False, env=environment)
 
 # player2 = MinMaxAgent(player = 2,depth = 3, environment=environment)
 # player2 = MinMaxAgent2(player = 2,depth = 3, environment=environment)
 # player2 = AlphaBetaAgent(player = 2,depth = 2, environment=environment)
-player2 = RandomAgent(environment)
+# player2 = RandomAgent(environment)
 # player2 = FixAgent(environment, player=2, train=False)
-# player2 = FixAgent2(environment, player=2,train=False)
+player2 = FixAgent2(environment, player=2,train=False)
 
 
 def main ():
@@ -37,7 +37,7 @@ def main ():
     player2_win = 0
     games = 0
     totalScore = 0
-    while games < 1000:
+    while games < 100:
         action = player.get_Action(state=environment.state)
         environment.move(action, environment.state)
         player = switchPlayers(player)

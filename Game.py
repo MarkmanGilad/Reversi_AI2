@@ -21,15 +21,15 @@ win = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Reversi')
 environment = Reversi()
 graphics = Graphics(win, board = environment.state.board)
-player1 = Human_Agent(player=1)
+# player1 = Human_Agent(player=1)
 # player1 = MinMaxAgent(player = 1,depth = 3, environment=environment)
 # player1 = MinMaxAgent2(player = 1,depth = 3, environment=environment)
 # player1 = AlphaBetaAgent(player = 1,depth = 3, environment=environment)
 # player1 = RandomAgent(environment)
 # player1 = FixAgent(environment, player=1)
 # player1 = FixAgent2(environment, player=1, train=True)
-# path='Data/DQN_Model.pth'
-# player1 = DQNAgent(player=1, parametes_path=None,train=False, env=environment)
+path='Data/best_fix_13.pth'
+player1 = DQNAgent(player=1, parametes_path=None,train=False, env=environment)
 
 player2 = Human_Agent(player=2)
 # player2 = MinMaxAgent(player = 2,depth = 3, environment=environment)

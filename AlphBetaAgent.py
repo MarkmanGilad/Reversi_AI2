@@ -14,8 +14,8 @@ class AlphaBetaAgent:
         self.environment : Reversi = environment
 
     def evaluate (self, gameState : State):
-        player_score, opponent_score = gameState.score(player = self.player)
-        score =  player_score - opponent_score
+        # player_score, opponent_score = gameState.score(player = self.player)
+        score =  gameState.score(player = self.player)
         
         for row in range(0, 7):
             for col in (0, 7):

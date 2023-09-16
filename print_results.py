@@ -11,17 +11,17 @@ import matplotlib.pyplot as plt
 # path2 = 'Data/results_fix_Random_start_1000k.pth'
 # path3 = 'Data/results_fix_random_start_1_layer2.pth'
 
-path3 = 'Data/results_fix_8.pth'
-random_results_path_3 = 'Data/random_fix_8.pth'
+path3 = 'Data/results_fix_12.pth'
+random_results_path_3 = 'Data/random_fix_12.pth'
 
-path4 = 'Data/results_Random_9.pth'
-random_results_path_4 = 'Data/random_test_9.pth'
+path4 = 'Data/results_fix_13.pth'
+random_results_path_4 = 'Data/random_fix_13.pth'
 
-path5 = 'Data/results_fix_6.pth'
-random_results_path_5 = 'Data/random_fix_6.pth'
+path5 = 'Data/results_Random_9.pth'
+random_results_path_5 = 'Data/random_test_9.pth'
 
-path6 = 'Data/results_fix_7.pth'
-random_results_path_6 = 'Data/random_fix_7.pth'
+path6 = 'Data/results_fix_11.pth'
+random_results_path_6 = 'Data/random_fix_11.pth'
 
 
 # results1 = torch.load(path1)

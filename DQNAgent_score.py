@@ -23,9 +23,9 @@ class DQNAgent:
               self.DQN.eval()
 
     def get_Action (self, state: State, epoch = 0, events= None, train = True, graphics = None):
-        self.train_mode(train)
+        # self.train_mode(train)
         actions = state.legal_actions
-        if self.train:
+        if self.train and train:
             epsilon = self.epsilon_greedy(epoch)
             rnd = random.random()
             if np.count_nonzero(state.board)<rundom_start:
