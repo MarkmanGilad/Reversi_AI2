@@ -31,12 +31,12 @@ graphics = Graphics(win, board = environment.state.board)
 path='Data/best_fix_13.pth'
 player1 = DQNAgent(player=1, parametes_path=None,train=False, env=environment)
 
-player2 = Human_Agent(player=2)
+# player2 = Human_Agent(player=2)
 # player2 = MinMaxAgent(player = 2,depth = 3, environment=environment)
 # player2 = MinMaxAgent2(player = 2,depth = 3, environment=environment)
 # player2 = AlphaBetaAgent(player = 2,depth = 3, environment=environment)
 # player2 = RandomAgent(environment)
-# player2 = FixAgent(environment, player=2, train=True)
+player2 = FixAgent(environment, player=2, train=True)
 # player2 = FixAgent2(environment, player=2)
 
 def main ():
